@@ -116,7 +116,6 @@ public class SmokeTest {
     }
 
     @Test
-    @Ignore
     public void criteriaBuilder() {
         Account account = new Account();
         account.setLogin("test");
