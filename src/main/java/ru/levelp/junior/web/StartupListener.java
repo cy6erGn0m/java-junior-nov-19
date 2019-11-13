@@ -16,9 +16,7 @@ import javax.servlet.annotation.WebListener;
 import java.util.Date;
 import java.util.Random;
 
-@WebListener
-public class StartupListener implements ServletContextListener {
-    @Override
+public class StartupListener {
     public void contextInitialized(ServletContextEvent event) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
 
@@ -50,7 +48,6 @@ public class StartupListener implements ServletContextListener {
         event.getServletContext().setAttribute("factory", factory);
     }
 
-    @Override
     public void contextDestroyed(ServletContextEvent event) {
         EntityManagerFactory factory = getFactory(event.getServletContext());
 
