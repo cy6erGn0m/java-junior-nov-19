@@ -1,20 +1,18 @@
 package ru.levelp.junior.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import ru.levelp.junior.dao.AccountsDAO;
 import ru.levelp.junior.dao.TransactionsDAO;
 import ru.levelp.junior.entities.Account;
 import ru.levelp.junior.entities.Transaction;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.Date;
 import java.util.Random;
 
-@Component
+@Controller
 public class StartupListener {
 
     @Autowired
@@ -23,17 +21,14 @@ public class StartupListener {
     @Autowired
     private TransactionsDAO tx;
 
-    @Autowired
-    private EntityManager manager;
-
-    @EventListener
-    public void handleContextRefreshEvent(ContextRefreshedEvent ctxStartEvt) {
+    @GetMapping(path = "/init")
+    public String handleContextRefreshEvent() {
         Account testAccount;
         Account secondAccount;
-        manager.getTransaction().begin();
+
         try {
-            testAccount = dao.findByLogin("test");
-            secondAccount = dao.findByLogin("second");
+            dao.findByLogin("test");
+            dao.findByLogin("second");
         } catch (NoResultException notFound) {
             testAccount = new Account("test", "123");
             secondAccount = new Account("second", "333");
@@ -44,8 +39,8 @@ public class StartupListener {
             for (int i = 0; i < 10; ++i) {
                 tx.create(new Transaction(new Date(), new Random().nextDouble() * 100, testAccount, secondAccount));
             }
-
-            manager.getTransaction().commit();
         }
+
+        return "redirect:/";
     }
 }

@@ -1,20 +1,25 @@
 package ru.levelp.junior.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.levelp.junior.entities.Account;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Repository
 public class AccountsDAO {
-    private final EntityManager manager;
+    @PersistenceContext
+    private EntityManager manager;
 
-    @Autowired
     public AccountsDAO(EntityManager manager) {
         this.manager = manager;
     }
 
+    public AccountsDAO() {
+    }
+
+    @Transactional
     public void create(Account account) {
         manager.persist(account);
     }
