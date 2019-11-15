@@ -1,31 +1,36 @@
 package ru.levelp.junior.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 import ru.levelp.junior.dao.AccountsDAO;
 import ru.levelp.junior.dao.TransactionsDAO;
 import ru.levelp.junior.entities.Account;
 import ru.levelp.junior.entities.Transaction;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 import java.util.Date;
 import java.util.Random;
 
+@Component
 public class StartupListener {
-    public void contextInitialized(ServletContextEvent event) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
 
+    @Autowired
+    private AccountsDAO dao;
+
+    @Autowired
+    private TransactionsDAO tx;
+
+    @Autowired
+    private EntityManager manager;
+
+    @EventListener
+    public void handleContextRefreshEvent(ContextRefreshedEvent ctxStartEvt) {
         Account testAccount;
         Account secondAccount;
-        EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
-        AccountsDAO dao = new AccountsDAO(manager);
-        TransactionsDAO tx = new TransactionsDAO(manager);
         try {
             testAccount = dao.findByLogin("test");
             secondAccount = dao.findByLogin("second");
@@ -41,22 +46,6 @@ public class StartupListener {
             }
 
             manager.getTransaction().commit();
-        } finally {
-            manager.close();
         }
-
-        event.getServletContext().setAttribute("factory", factory);
-    }
-
-    public void contextDestroyed(ServletContextEvent event) {
-        EntityManagerFactory factory = getFactory(event.getServletContext());
-
-        if (factory != null) {
-            factory.close();
-        }
-    }
-
-    public static EntityManagerFactory getFactory(ServletContext context) {
-        return (EntityManagerFactory) context.getAttribute("factory");
     }
 }
