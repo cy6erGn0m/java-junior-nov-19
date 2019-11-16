@@ -12,6 +12,7 @@ import ru.levelp.junior.entities.Account;
 import ru.levelp.junior.entities.Transaction;
 import ru.levelp.junior.web.AppConfig;
 import ru.levelp.junior.web.DashboardService;
+import ru.levelp.tests.TestConfig;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
@@ -20,7 +21,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = TestConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class DashboardServiceTest {
     @Autowired
