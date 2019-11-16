@@ -19,6 +19,8 @@
     <p>Password: <input type="password" name="password"></p>
     <p><input type="submit"></p>
 </form>
+
+<a href="/register">Register</a>
 </c:if>
 
 <c:if test="${not empty sessionScope['accountId']}">

@@ -1,6 +1,7 @@
 package ru.levelp.junior.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "accounts")
@@ -10,9 +11,11 @@ public class Account {
     private int id;
 
     @Column(length = 32, unique = true, nullable = false)
+    @Size(min = 4)
     private String login;
 
     @Column(length = 32, nullable = false)
+    @Size(min = 4)
     private String password;
 
     public Account() {

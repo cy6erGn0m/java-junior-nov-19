@@ -1,6 +1,10 @@
 package ru.levelp.junior.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 
 @Entity
@@ -15,6 +19,7 @@ public class Transaction {
     private Date time;
 
     @Column
+    @Positive
     private double amount;
 
     @ManyToOne(optional = false)
