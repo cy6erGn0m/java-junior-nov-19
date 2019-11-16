@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import ru.levelp.junior.entities.Account;
 import ru.levelp.junior.entities.Transaction;
-import ru.levelp.junior.web.AppConfig;
 import ru.levelp.junior.web.DashboardService;
 import ru.levelp.tests.TestConfig;
 
-import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
@@ -33,14 +32,11 @@ public class DashboardServiceTest {
     @Autowired
     private TransactionsDAO transactions;
 
-    @Autowired
-    private EntityManager manager;
-
     private int accountId;
 
     @Before
+    @Transactional
     public void setup() {
-        manager.getTransaction().begin();
         Account testAccount = new Account("test", "test");
         accounts.create(testAccount);
 
@@ -49,7 +45,6 @@ public class DashboardServiceTest {
 
         Transaction tx = new Transaction(new Date(), 10, testAccount, testAccount2);
         transactions.create(tx);
-        manager.getTransaction().commit();
 
         accountId = testAccount.getId();
     }

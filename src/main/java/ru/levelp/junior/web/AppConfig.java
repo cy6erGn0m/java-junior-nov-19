@@ -3,21 +3,15 @@ package ru.levelp.junior.web;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
 @ComponentScan(basePackages = "ru.levelp.junior")
 public class AppConfig {
     @Bean
-    public EntityManagerFactory getEntityManagerFactory() {
-        return Persistence.createEntityManagerFactory("ProdPersistenceUnit");
-    }
-
-    @Bean
-    public EntityManager getEntityManager(EntityManagerFactory factory) {
-        return factory.createEntityManager();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+        LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
+        bean.setPersistenceUnitName("ProdPersistenceUnit");
+        return bean;
     }
 }

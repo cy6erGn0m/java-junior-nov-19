@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.levelp.junior.dao.AccountsDAO;
 import ru.levelp.junior.dao.TransactionsDAO;
 import ru.levelp.junior.entities.Account;
@@ -23,14 +24,12 @@ public class StartupListener {
     @Autowired
     private TransactionsDAO tx;
 
-    @Autowired
-    private EntityManager manager;
-
     @EventListener
+    @Transactional
     public void handleContextRefreshEvent(ContextRefreshedEvent ctxStartEvt) {
         Account testAccount;
         Account secondAccount;
-        manager.getTransaction().begin();
+
         try {
             testAccount = dao.findByLogin("test");
             secondAccount = dao.findByLogin("second");
@@ -44,8 +43,6 @@ public class StartupListener {
             for (int i = 0; i < 10; ++i) {
                 tx.create(new Transaction(new Date(), new Random().nextDouble() * 100, testAccount, secondAccount));
             }
-
-            manager.getTransaction().commit();
         }
     }
 }
