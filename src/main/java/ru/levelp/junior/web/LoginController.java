@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.levelp.junior.dao.AccountsDAO;
+import ru.levelp.junior.dao.AccountsRepository;
 import ru.levelp.junior.entities.Account;
 
 import javax.persistence.NoResultException;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginController {
     @Autowired
-    private AccountsDAO accounts;
+    private AccountsRepository accounts;
 
     @PostMapping(path = "/login")
     public String processLogin(
@@ -55,7 +55,7 @@ public class LoginController {
         }
 
         try {
-            accounts.create(new Account(form.getLogin(), form.getPassword()));
+            accounts.save(new Account(form.getLogin(), form.getPassword()));
         } catch (Exception e) {
             result.addError(new FieldError("form", "login",
                     "User with this login is already registered"));
