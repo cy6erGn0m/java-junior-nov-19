@@ -1,7 +1,10 @@
 package ru.levelp.junior.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -16,7 +19,12 @@ public class Account {
 
     @Column(length = 32, nullable = false)
     @Size(min = 4)
+    @JsonIgnore
     private String password;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "origin")
+    private List<Transaction> transactions;
 
     public Account() {
     }
