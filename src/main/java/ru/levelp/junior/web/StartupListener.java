@@ -34,8 +34,8 @@ public class StartupListener {
             testAccount = dao.findByLogin("test");
             secondAccount = dao.findByLogin("second");
         } catch (NoResultException notFound) {
-            testAccount = new Account("test", "123");
-            secondAccount = new Account("second", "333");
+            testAccount = new Account("test", "1234");
+            secondAccount = new Account("second", "3334");
 
             dao.create(testAccount);
             dao.create(secondAccount);

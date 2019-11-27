@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import ru.levelp.junior.entities.Account;
 import ru.levelp.junior.entities.Transaction;
+import ru.levelp.junior.web.AccountsRepository;
 import ru.levelp.junior.web.DashboardService;
 import ru.levelp.tests.TestConfig;
 
@@ -27,7 +28,7 @@ public class DashboardServiceTest {
     private DashboardService dashboard;
 
     @Autowired
-    private AccountsDAO accounts;
+    private AccountsRepository accounts;
 
     @Autowired
     private TransactionsDAO transactions;
@@ -38,10 +39,10 @@ public class DashboardServiceTest {
     @Transactional
     public void setup() {
         Account testAccount = new Account("test", "test");
-        accounts.create(testAccount);
+        accounts.save(testAccount);
 
         Account testAccount2 = new Account("test2", "test");
-        accounts.create(testAccount2);
+        accounts.save(testAccount2);
 
         Transaction tx = new Transaction(new Date(), 10, testAccount, testAccount2);
         transactions.create(tx);

@@ -12,13 +12,12 @@ import java.util.List;
 @Service
 public class DashboardService {
     @Autowired
-    private AccountsDAO dao;
+    private AccountsRepository dao;
 
     @Autowired
     private TransactionsDAO tx;
 
     public List<Transaction> getTransactions(int accountId) {
-        Account found = dao.findById(accountId);
-        return tx.findByAccount(found);
+        return dao.findById(accountId).map(account -> tx.findByAccount(account)).get();
     }
 }
