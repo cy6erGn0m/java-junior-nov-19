@@ -87,6 +87,12 @@
             <artifactId>spring-data-jpa</artifactId>
             <version>${spring.data.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-rest-webmvc -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-webmvc</artifactId>
+            <version>3.2.2.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
