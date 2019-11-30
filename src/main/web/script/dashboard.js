@@ -49,11 +49,12 @@ function loadTransactionsFailed() {
 
 function loadTransactions(id) {
     var request = new XMLHttpRequest();
-    request.open("get", "/api/transactions/find?accountId=" + id, true);
+    request.open("get", "/api/transactions/find?page=1&accountId=" + id, true);
     request.onreadystatechange = function (ev) {
         if (request.readyState === 4) {
             if (request.status === 200) {
-                transactionsLoaded(JSON.parse(request.responseText));
+                var response = JSON.parse(request.responseText);
+                transactionsLoaded(response.content);
             } else {
                 loadTransactionsFailed();
             }
