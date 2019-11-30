@@ -4,8 +4,12 @@
 <html>
 <head>
     <title>Dashboard</title>
+    <script type="text/javascript">
+        accountId = ${sessionScope['accountId']};
+    </script>
+    <script type="text/javascript" src="/script/dashboard.js"></script>
 </head>
-<body>
+<body onload="loadTransactions(accountId)">
 
 <h1>Welcome</h1>
 
@@ -19,16 +23,21 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody id="transactions-list">
 
-    <c:forEach items="${transactions}" var="transaction">
+    <%--<c:forEach items="${transactions}" var="transaction">--%>
+    <%--<tr>--%>
+        <%--<td>${transaction.time}</td>--%>
+        <%--<td>${transaction.amount}</td>--%>
+        <%--<td>${transaction.origin.login}</td>--%>
+        <%--<td>${transaction.receiver.login}</td>--%>
+    <%--</tr>--%>
+    <%--</c:forEach>--%>
     <tr>
-        <td>${transaction.time}</td>
-        <td>${transaction.amount}</td>
-        <td>${transaction.origin.login}</td>
-        <td>${transaction.receiver.login}</td>
+        <td colspan="4">
+            Loading...
+        </td>
     </tr>
-    </c:forEach>
 
     </tbody>
 </table>

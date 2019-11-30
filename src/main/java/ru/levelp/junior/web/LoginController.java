@@ -27,15 +27,16 @@ public class LoginController {
             @RequestParam String login,
             @RequestParam String password,
             ModelMap model) {
-        try {
-            Account found = accounts.findByLoginAndPassword(login, password);
-            session.setAttribute("accountId", found.getId());
 
-            return "redirect:/dashboard";
-        } catch (NoResultException notFound) {
+        Account found = accounts.findByLoginAndPassword(login, password);
+        if (found == null) {
             model.addAttribute("login", "login");
             return "mainPage";
         }
+
+        session.setAttribute("accountId", found.getId());
+
+        return "redirect:/dashboard";
     }
 
     @GetMapping("/register")
@@ -60,7 +61,7 @@ public class LoginController {
             result.addError(new FieldError("form", "login",
                     "User with this login is already registered"));
         }
-        
+
         if (result.hasErrors()) {
             return "registration";
         }
