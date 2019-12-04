@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.levelp.junior.web.AppConfig;
 import ru.levelp.junior.web.StartupListener;
 import ru.levelp.junior.web.WebConfig;
@@ -25,5 +26,21 @@ public class TestConfig {
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();
         bean.setPersistenceUnitName("TestPersistenceUnit");
         return bean;
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        // no encryption applied in tests
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence rawPassword) {
+                return rawPassword.toString();
+            }
+
+            @Override
+            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                return rawPassword != null && rawPassword.equals(encodedPassword);
+            }
+        };
     }
 }
