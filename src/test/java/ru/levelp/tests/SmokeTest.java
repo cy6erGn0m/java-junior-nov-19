@@ -40,7 +40,7 @@ public class SmokeTest {
     public void testCreateAccount() throws Exception {
         Account account = new Account();
         account.setLogin("test");
-        account.setPassword("123");
+        account.setEncryptedPassword("123");
 
         manager.getTransaction().begin();
         try {
@@ -59,7 +59,7 @@ public class SmokeTest {
     public void queryAccount() {
         Account account = new Account();
         account.setLogin("test");
-        account.setPassword("123");
+        account.setEncryptedPassword("123");
 
         manager.getTransaction().begin();
         try {
@@ -75,18 +75,18 @@ public class SmokeTest {
                 .getSingleResult();
 
         assertEquals(account.getId(), found.getId());
-        assertEquals("123", found.getPassword());
+        assertEquals("123", found.getEncryptedPassword());
     }
 
     @Test
     public void queryTransactions() {
         Account account = new Account();
         account.setLogin("test");
-        account.setPassword("123");
+        account.setEncryptedPassword("123");
 
         Account receiver = new Account();
         receiver.setLogin("another");
-        receiver.setPassword("456");
+        receiver.setEncryptedPassword("456");
 
         Transaction tx = new Transaction();
         tx.setAmount(10);
@@ -119,7 +119,7 @@ public class SmokeTest {
     public void criteriaBuilder() {
         Account account = new Account();
         account.setLogin("test");
-        account.setPassword("123");
+        account.setEncryptedPassword("123");
 
         manager.getTransaction().begin();
         try {

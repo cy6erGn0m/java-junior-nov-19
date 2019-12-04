@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface AccountsRepository extends PagingAndSortingRepository<Account, Integer> {
-    Account findByLoginAndPassword(String login, String password);
+    Account findByLoginAndEncryptedPassword(String login, String encryptedPassword);
     Account findByLogin(String login);
 
     @Query("select a from Account a where a.login = :login")

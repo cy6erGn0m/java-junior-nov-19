@@ -51,7 +51,7 @@ public class DashboardServiceTest {
 
     @Test
     public void testGetTransactions() {
-        List<Transaction> transactions = dashboard.getTransactions(accountId);
+        List<Transaction> transactions = dashboard.getTransactions("test");
 
         assertEquals(1, transactions.size());
     }

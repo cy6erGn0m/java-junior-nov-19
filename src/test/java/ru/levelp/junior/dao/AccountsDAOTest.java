@@ -40,7 +40,7 @@ public class AccountsDAOTest {
         manager.getTransaction().begin();
         try {
             account.setLogin("test1");
-            account.setPassword("123");
+            account.setEncryptedPassword("123");
 
             dao.create(account);
             manager.getTransaction().commit();
@@ -58,7 +58,7 @@ public class AccountsDAOTest {
         manager.getTransaction().begin();
         try {
             account.setLogin("test1");
-            account.setPassword("123");
+            account.setEncryptedPassword("123");
 
             manager.persist(account);
             manager.getTransaction().commit();
@@ -84,7 +84,7 @@ public class AccountsDAOTest {
         manager.getTransaction().begin();
         try {
             account.setLogin("test1");
-            account.setPassword("123");
+            account.setEncryptedPassword("123");
 
             manager.persist(account);
             manager.getTransaction().commit();

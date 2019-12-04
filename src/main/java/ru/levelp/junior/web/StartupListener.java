@@ -3,6 +3,7 @@ package ru.levelp.junior.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.levelp.junior.dao.AccountsDAO;
@@ -24,6 +25,9 @@ public class StartupListener {
     @Autowired
     private TransactionsDAO tx;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @EventListener
     @Transactional
     public void handleContextRefreshEvent(ContextRefreshedEvent ctxStartEvt) {
@@ -34,8 +38,8 @@ public class StartupListener {
             testAccount = dao.findByLogin("test");
             secondAccount = dao.findByLogin("second");
         } catch (NoResultException notFound) {
-            testAccount = new Account("test", "123");
-            secondAccount = new Account("second", "333");
+            testAccount = new Account("test", encoder.encode("123"));
+            secondAccount = new Account("second", encoder.encode("333"));
 
             dao.create(testAccount);
             dao.create(secondAccount);

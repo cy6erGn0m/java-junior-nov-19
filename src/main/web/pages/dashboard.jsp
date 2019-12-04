@@ -25,14 +25,17 @@
 
     <tbody id="transactions-list">
 
-    <%--<c:forEach items="${transactions}" var="transaction">--%>
-    <%--<tr>--%>
-        <%--<td>${transaction.time}</td>--%>
-        <%--<td>${transaction.amount}</td>--%>
-        <%--<td>${transaction.origin.login}</td>--%>
-        <%--<td>${transaction.receiver.login}</td>--%>
-    <%--</tr>--%>
-    <%--</c:forEach>--%>
+    <c:forEach items="${transactions}" var="transaction">
+    <tr>
+        <td>${transaction.time}</td>
+        <td>${transaction.amount}</td>
+        <td>${transaction.origin.login}</td>
+        <td>${transaction.receiver.login}</td>
+
+        <%-- XSS <c:out value="${transaction.receiver.login}" escapeXml="true"/>--%>
+    </tr>
+    </c:forEach>
+
     <tr>
         <td colspan="4">
             Loading...

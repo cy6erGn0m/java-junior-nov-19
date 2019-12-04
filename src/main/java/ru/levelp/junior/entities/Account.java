@@ -17,10 +17,10 @@ public class Account {
     @Size(min = 4)
     private String login;
 
-    @Column(length = 32, nullable = false)
+    @Column(length = 64, nullable = false)
     @Size(min = 4)
     @JsonIgnore
-    private String password;
+    private String encryptedPassword;
 
     @JsonIgnore
     @OneToMany(mappedBy = "origin")
@@ -31,7 +31,7 @@ public class Account {
 
     public Account(String login, String password) {
         this.login = login;
-        this.password = password;
+        this.encryptedPassword = password;
     }
 
     public int getId() {
@@ -50,11 +50,11 @@ public class Account {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEncryptedPassword() {
+        return encryptedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
     }
 }
