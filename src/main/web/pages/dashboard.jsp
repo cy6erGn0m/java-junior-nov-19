@@ -5,7 +5,7 @@
 <head>
     <title>Dashboard</title>
     <script type="text/javascript">
-        accountId = ${sessionScope['accountId']};
+        accountId = ${accountId};
     </script>
     <script type="text/javascript" src="/script/dashboard.js"></script>
 </head>

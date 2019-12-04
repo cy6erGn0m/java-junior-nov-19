@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/")
-                .successForwardUrl("redirect:/dashboard")
+                .defaultSuccessUrl("/dashboard")
                 .usernameParameter("login")
                 .passwordParameter("password")
                 .loginProcessingUrl("/login");

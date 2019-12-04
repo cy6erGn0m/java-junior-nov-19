@@ -37,7 +37,7 @@ public class AccountsDAO {
 
     public Account findByLoginAndPassword(String login, String password) {
         return manager.createQuery(
-                "from Account where login = :login AND password = :password", Account.class)
+                "from Account where login = :login AND encryptedPassword = :password", Account.class)
                 .setParameter("login", login)
                 .setParameter("password", password)
                 .getSingleResult();
