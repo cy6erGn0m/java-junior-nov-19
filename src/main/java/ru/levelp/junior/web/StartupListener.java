@@ -3,6 +3,7 @@ package ru.levelp.junior.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,8 +12,6 @@ import ru.levelp.junior.dao.TransactionsDAO;
 import ru.levelp.junior.entities.Account;
 import ru.levelp.junior.entities.Transaction;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import java.util.Date;
 import java.util.Random;
 
@@ -37,7 +36,7 @@ public class StartupListener {
         try {
             testAccount = dao.findByLogin("test");
             secondAccount = dao.findByLogin("second");
-        } catch (NoResultException notFound) {
+        } catch (EmptyResultDataAccessException notFound) {
             testAccount = new Account("test", encoder.encode("123"));
             secondAccount = new Account("second", encoder.encode("333"));
 
