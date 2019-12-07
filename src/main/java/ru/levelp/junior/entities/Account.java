@@ -14,11 +14,11 @@ public class Account {
     private int id;
 
     @Column(length = 32, unique = true, nullable = false)
-    @Size(min = 4)
+    @Size(min = 3)
     private String login;
 
     @Column(length = 64, nullable = false)
-    @Size(min = 4)
+    @Size(min = 3)
     @JsonIgnore
     private String encryptedPassword;
 

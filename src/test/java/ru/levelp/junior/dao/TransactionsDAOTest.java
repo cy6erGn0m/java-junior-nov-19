@@ -37,7 +37,7 @@ public class TransactionsDAOTest {
     @Test
     public void create() {
         Account origin = new Account("from", "123");
-        Account receiver = new Account("to", "456");
+        Account receiver = new Account("recipient", "456");
 
         Transaction tx = new Transaction(new Date(), 1, origin, receiver);
 
@@ -59,7 +59,7 @@ public class TransactionsDAOTest {
     @Test
     public void findByOrigin() {
         Account origin = new Account("from", "123");
-        Account receiver = new Account("to", "456");
+        Account receiver = new Account("recipient", "456");
 
         Transaction tx = new Transaction(new Date(), 1, origin, receiver);
 
@@ -82,7 +82,7 @@ public class TransactionsDAOTest {
     @Test
     public void findByReceiver() {
         Account origin = new Account("from", "123");
-        Account receiver = new Account("to", "456");
+        Account receiver = new Account("recipient", "456");
 
         Transaction tx = new Transaction(new Date(), 1, origin, receiver);
 
@@ -105,7 +105,7 @@ public class TransactionsDAOTest {
     @Test
     public void findByAccount() {
         Account origin = new Account("from", "123");
-        Account receiver = new Account("to", "456");
+        Account receiver = new Account("recipient", "456");
 
         Transaction tx = new Transaction(new Date(), 1, origin, receiver);
 
